@@ -21,10 +21,16 @@
 
 <body>
 <p class="center">How much time until you have me back!</p>
+<p class="center"><input id="dat" type="date" /><input id="tim" type="text" placeholder="10:00 PM" /><input id="zone" type="text" placeholder="MST" /><input onclick="starttimer()" type="submit" /></p>
 <div id="countdown"></div>
 </body>
 <script>
-var end = new Date('07/21/2015 10:00 PM MST');
+function starttimer() {
+	var dat = document.getElementById('dat').value;
+	var tim = document.getElementById('tim').value;
+	var zone = document.getElementById('zone').value;
+
+	var end = new Date(dat + ' ' + tim + ' ' + zone);
 
     var _second = 1000;
     var _minute = _second * 60;
@@ -47,12 +53,29 @@ var end = new Date('07/21/2015 10:00 PM MST');
         var minutes = Math.floor((distance % _hour) / _minute);
         var seconds = Math.floor((distance % _minute) / _second);
 
-        document.getElementById('countdown').innerHTML = days + 'days ';
-        document.getElementById('countdown').innerHTML += hours + 'hrs ';
-        document.getElementById('countdown').innerHTML += minutes + 'mins ';
-        document.getElementById('countdown').innerHTML += seconds + 'secs';
+        if (days > 1) {
+        	document.getElementById('countdown').innerHTML = days + 'days ';
+    	} else if (days == 1) {
+    		document.getElementById('countdown').innerHTML = days + 'day ';
+    	}
+        if (hours > 1) {
+        	document.getElementById('countdown').innerHTML += hours + 'hrs ';
+        } else if (hours == 1) {
+        	document.getElementById('countdown').innerHTML += hours + 'hr ';
+        }
+        if (minutes > 1) {
+        	document.getElementById('countdown').innerHTML += minutes + 'mins ';
+        } else if (minutes == 1) {
+        	document.getElementById('countdown').innerHTML += minutes + 'min ';
+        }
+        if (seconds > 1) {
+        	document.getElementById('countdown').innerHTML += seconds + 'secs';
+        } else if (seconds == 1) {
+        	document.getElementById('countdown').innerHTML += seconds + 'sec';
+        }
     }
 
     timer = setInterval(showRemaining, 1000);
+}
 </script>
 </html>
